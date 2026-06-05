@@ -94,7 +94,7 @@ const [showSettingPassword3, setShowSettingPassword3] = useState(false);
     } finally {
       setLoadingProfile(false);
     }
-}, []);
+}, [fetchReports]);
 
  useEffect(() => {
     const currentUser = auth.currentUser;
