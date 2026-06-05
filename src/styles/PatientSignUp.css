@@ -1,0 +1,367 @@
+/* MediTrail Patient Signup - Apple-Inspired Design */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
+}
+
+.patient-signup-container {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  padding: 20px;
+  overflow: hidden;
+}
+
+.patient-signup-card {
+  width: 100%;
+  max-width: 900px;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 40px 50px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+  transition: box-shadow 0.3s ease;
+  max-height: 95vh;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.patient-signup-card::-webkit-scrollbar {
+  display: none;
+}
+
+.patient-signup-card:hover {
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+}
+
+.patient-signup-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.patient-signup-header h1 {
+  font-size: 32px;
+  font-weight: 700;
+  color: #1d1d1f;
+  margin-bottom: 6px;
+  letter-spacing: -0.5px;
+}
+
+.patient-signup-header p {
+  font-size: 15px;
+  color: #86868b;
+  font-weight: 400;
+}
+
+.patient-error-message {
+  background: #fff5f5;
+  border: 1px solid #fed7d7;
+  color: #c53030;
+  padding: 12px 16px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  font-size: 13px;
+  text-align: center;
+  font-weight: 500;
+}
+
+.patient-form-group {
+  margin-bottom: 16px;
+}
+
+.patient-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 0;
+}
+
+.patient-form-row .patient-form-group {
+  margin-bottom: 16px;
+}
+
+.patient-form-group input,
+.patient-select {
+  width: 100%;
+  padding: 14px 16px;
+  font-size: 14px;
+  font-weight: 400;
+  color: #1d1d1f;
+  background: #f5f5f7;
+  border: 2px solid transparent;
+  border-radius: 12px;
+  outline: none;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.patient-select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%2386868b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  padding-right: 40px;
+}
+
+.patient-select option {
+  background: #ffffff;
+  color: #1d1d1f;
+}
+
+.patient-form-group input::placeholder {
+  color: #86868b;
+}
+
+.patient-form-group input:focus,
+.patient-select:focus {
+  background: #ffffff;
+  border-color: #1d1d1f;
+}
+
+.patient-form-group input:disabled,
+.patient-select:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.patient-btn-primary {
+  width: 100%;
+  padding: 14px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #ffffff;
+  background: #1d1d1f;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 8px;
+  font-family: inherit;
+  letter-spacing: -0.2px;
+}
+
+.patient-btn-primary:hover:not(:disabled) {
+  transform: scale(1.02);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.patient-btn-primary:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.patient-btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.patient-divider {
+  position: relative;
+  text-align: center;
+  margin: 24px 0;
+}
+
+.patient-divider::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: #e5e5e7;
+}
+
+.patient-divider span {
+  position: relative;
+  background: #ffffff;
+  padding: 0 16px;
+  color: #86868b;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.patient-btn-google {
+  width: 100%;
+  padding: 14px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #1d1d1f;
+  background: #ffffff;
+  border: 2px solid #e5e5e7;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: inherit;
+}
+
+.patient-btn-google:hover:not(:disabled) {
+  border-color: #1d1d1f;
+  transform: scale(1.02);
+}
+
+.patient-btn-google:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.patient-btn-google:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.patient-login-link {
+  text-align: center;
+  margin-top: 24px;
+  font-size: 13px;
+  color: #86868b;
+}
+
+.patient-login-link a {
+  color: #1d1d1f;
+  text-decoration: none;
+  font-weight: 600;
+  transition: opacity 0.2s ease;
+}
+
+.patient-login-link a:hover {
+  opacity: 0.7;
+}
+
+/* Responsive Design */
+
+@media (max-width: 768px) {
+  .patient-signup-card {
+    max-width: 100%;
+    padding: 32px 28px;
+    border-radius: 16px;
+  }
+
+  .patient-signup-header h1 {
+    font-size: 26px;
+  }
+
+  .patient-signup-header p {
+    font-size: 14px;
+  }
+
+  .patient-form-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .patient-signup-container {
+    padding: 12px;
+  }
+
+  .patient-signup-card {
+    padding: 24px 20px;
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.05);
+    border-radius: 12px;
+  }
+
+  .patient-signup-header {
+    margin-bottom: 24px;
+  }
+
+  .patient-signup-header h1 {
+    font-size: 22px;
+  }
+
+  .patient-signup-header p {
+    font-size: 13px;
+  }
+
+  .patient-form-group input,
+  .patient-select,
+  .patient-btn-primary,
+  .patient-btn-google {
+    padding: 12px 14px;
+    font-size: 13px;
+  }
+
+  .patient-form-group {
+    margin-bottom: 12px;
+  }
+
+  .patient-form-row .patient-form-group {
+    margin-bottom: 12px;
+  }
+
+  .patient-divider {
+    margin: 20px 0;
+  }
+
+  .patient-login-link {
+    margin-top: 20px;
+    font-size: 12px;
+  }
+}
+
+/* Extra small screens */
+@media (max-width: 360px) {
+  .patient-signup-card {
+    padding: 20px 16px;
+  }
+
+  .patient-signup-header h1 {
+    font-size: 20px;
+  }
+}
+
+/* Password Toggle Styles */
+.patient-password-group {
+  position: relative;
+}
+
+.patient-password-toggle {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #86868b;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease;
+}
+
+.patient-password-toggle:hover {
+  color: #1d1d1f;
+}
+
+.patient-password-toggle:focus {
+  outline: none;
+}
+
+.patient-password-toggle svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Adjust input padding when toggle button is present */
+.patient-password-group input {
+  padding-right: 45px;
+}

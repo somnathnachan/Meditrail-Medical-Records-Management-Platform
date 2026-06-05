@@ -1,0 +1,341 @@
+/* MediTrail Doctor Login - Apple-Inspired Design */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
+}
+
+.login-container {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  padding: 20px;
+  overflow: hidden;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 480px;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 50px 50px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+  transition: box-shadow 0.3s ease;
+}
+
+.login-card:hover {
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+}
+
+.login-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.login-header h1 {
+  font-size: 36px;
+  font-weight: 700;
+  color: #1d1d1f;
+  margin-bottom: 8px;
+  letter-spacing: -0.5px;
+}
+
+.login-header p {
+  font-size: 16px;
+  color: #86868b;
+  font-weight: 400;
+}
+
+.error-message {
+  background: #fff5f5;
+  border: 1px solid #fed7d7;
+  color: #c53030;
+  padding: 14px 18px;
+  border-radius: 10px;
+  margin-bottom: 24px;
+  font-size: 14px;
+  text-align: center;
+  font-weight: 500;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 16px 18px;
+  font-size: 15px;
+  font-weight: 400;
+  color: #1d1d1f;
+  background: #f5f5f7;
+  border: 2px solid transparent;
+  border-radius: 12px;
+  outline: none;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.form-group input::placeholder {
+  color: #86868b;
+}
+
+.form-group input:focus {
+  background: #ffffff;
+  border-color: #1d1d1f;
+}
+
+.form-group input:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.forgot-link {
+  display: block;
+  text-align: right;
+  font-size: 13px;
+  color: #1d1d1f;
+  text-decoration: none;
+  font-weight: 500;
+  margin-bottom: 24px;
+  transition: opacity 0.2s ease;
+}
+
+.forgot-link:hover {
+  opacity: 0.7;
+}
+
+.btn-primary {
+  width: 100%;
+  padding: 16px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #ffffff;
+  background: #1d1d1f;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+  letter-spacing: -0.2px;
+}
+
+.btn-primary:hover:not(:disabled) {
+  transform: scale(0.98);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.btn-primary:active:not(:disabled) {
+  transform: scale(0.96);
+}
+
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.divider {
+  position: relative;
+  text-align: center;
+  margin: 32px 0;
+}
+
+.divider::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: #e5e5e7;
+}
+
+.divider span {
+  position: relative;
+  background: #ffffff;
+  padding: 0 16px;
+  color: #86868b;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.btn-google {
+  width: 100%;
+  padding: 16px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #1d1d1f;
+  background: #ffffff;
+  border: 2px solid #e5e5e7;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  font-family: inherit;
+}
+
+.btn-google:hover:not(:disabled) {
+  border-color: #1d1d1f;
+  transform: scale(0.98);
+}
+
+.btn-google:active:not(:disabled) {
+  transform: scale(0.96);
+}
+
+.btn-google:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.signup-link {
+  text-align: center;
+  margin-top: 32px;
+  font-size: 14px;
+  color: #86868b;
+}
+
+.signup-link a {
+  color: #1d1d1f;
+  text-decoration: none;
+  font-weight: 600;
+  transition: opacity 0.2s ease;
+}
+
+.signup-link a:hover {
+  opacity: 0.7;
+}
+
+/* Responsive Design */
+
+@media (max-width: 768px) {
+  .login-card {
+    padding: 40px 35px;
+    border-radius: 16px;
+  }
+
+  .login-header h1 {
+    font-size: 30px;
+  }
+
+  .login-header p {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-container {
+    padding: 16px;
+  }
+
+  .login-card {
+    padding: 36px 28px;
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.05);
+    border-radius: 12px;
+  }
+
+  .login-header {
+    margin-bottom: 32px;
+  }
+
+  .login-header h1 {
+    font-size: 26px;
+  }
+
+  .login-header p {
+    font-size: 14px;
+  }
+
+  .form-group {
+    margin-bottom: 16px;
+  }
+
+  .form-group input,
+  .btn-primary,
+  .btn-google {
+    padding: 14px 16px;
+    font-size: 14px;
+  }
+
+  .forgot-link {
+    font-size: 12px;
+    margin-bottom: 20px;
+  }
+
+  .divider {
+    margin: 24px 0;
+  }
+
+  .signup-link {
+    margin-top: 24px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 360px) {
+  .login-card {
+    padding: 28px 22px;
+  }
+
+  .login-header h1 {
+    font-size: 24px;
+  }
+
+  .login-header p {
+    font-size: 13px;
+  }
+}
+
+/* Password Toggle Styles */
+.password-group {
+  position: relative;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #86868b;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease;
+}
+
+.password-toggle:hover {
+  color: #1d1d1f;
+}
+
+.password-toggle:focus {
+  outline: none;
+}
+
+.password-toggle svg {
+  width: 20px;
+  height: 20px;
+}
+
+.password-group input {
+  padding-right: 45px;
+}
