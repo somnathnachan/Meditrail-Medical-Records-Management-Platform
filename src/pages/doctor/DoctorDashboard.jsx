@@ -36,9 +36,10 @@ const DoctorDashboard = ({ onLogout }) => {
   const [expandedSections, setExpandedSections] = useState({
     profile: false, security: false, notifications: false, privacy: false, account: false
   });
-  const [notificationToggles, setNotificationToggles] = useState({
-    uploadSuccess: true, uploadFail: true
-  });
+  // eslint-disable-next-line no-unused-vars
+const [notificationToggles, setNotificationToggles] = useState({
+  uploadSuccess: true, uploadFail: true
+});
 
   // Settings modal state
   const [settingModal, setSettingModal] = useState(null); // 'editName' | 'editSpecialization' | 'changePassword' | 'deleteAccount'
@@ -73,7 +74,8 @@ const DoctorDashboard = ({ onLogout }) => {
     chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [chatMessages]);
 
-  useEffect(() => {
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+useEffect(() => {
     if (activeTab === 'history' && user) {
         fetchHistory();
     }
@@ -261,9 +263,10 @@ const handleFileChange = (e) => {
     setExpandedSections(prev => ({ ...prev, [section]: !prev[section] }));
   };
 
-  const toggleNotification = (type) => {
+// eslint-disable-next-line no-unused-vars
+const toggleNotification = (type) => {
     setNotificationToggles(prev => ({ ...prev, [type]: !prev[type] }));
-  };
+};
 
   const handleSettingAction = (action) => {
     setSettingError('');

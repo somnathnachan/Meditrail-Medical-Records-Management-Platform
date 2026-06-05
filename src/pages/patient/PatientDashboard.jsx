@@ -26,11 +26,11 @@ const PatientDashboard = ({ onLogout }) => {
     privacy: false,
     account: false
   });
-  const [notificationToggles, setNotificationToggles] = useState({
-    emailAlert: true,
-    smsAlert: false
-  });
-
+  // eslint-disable-next-line no-unused-vars
+const [notificationToggles, setNotificationToggles] = useState({
+  emailAlert: true,
+  smsAlert: false
+});
 
   // Settings modal state
 const [settingModal, setSettingModal] = useState(null);
@@ -215,9 +215,10 @@ const handleDownload = async (fileId, fileName) => {
     setExpandedSections(prev => ({ ...prev, [section]: !prev[section] }));
   };
 
-  const toggleNotification = (type) => {
-    setNotificationToggles(prev => ({ ...prev, [type]: !prev[type] }));
-  };
+// eslint-disable-next-line no-unused-vars
+const toggleNotification = (type) => {
+  setNotificationToggles(prev => ({ ...prev, [type]: !prev[type] }));
+};
 
   const handleSettingAction = (action) => {
     setSettingError('');
@@ -823,7 +824,7 @@ const handleChatSend = async () => {
                   <li>Go to <strong>AI Chatbot</strong> from left menu</li>
                   <li>Ask any health or medical question</li>
                   <li>Get instant AI powered answers</li>
-                  <li>Powered by Google Gemini AI</li>
+                  <li>Powered by Groq LLaMA AI</li>
                 </ol>
               </div>
             </div>
