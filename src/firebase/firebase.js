@@ -10,12 +10,12 @@ import { getFirestore } from 'firebase/firestore';
 // Firebase configuration object
 // Replace with your actual Firebase project credentials from Console
 const firebaseConfig = {
-  apiKey: "AIzaSyBHxpMBhIniSaO7AR_Wdg0gIgTegguN74k",
-  authDomain: "meditrail-f3803.firebaseapp.com",
-  projectId: "meditrail-f3803",
-  storageBucket: "meditrail-f3803.firebasestorage.app",
-  messagingSenderId: "949117298365",
-  appId: "1:949117298365:web:b8a07fe78f46671d6a39d4"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID
 };
 
 // Initialize Firebase
