@@ -61,6 +61,20 @@ const DoctorDashboard = ({ onLogout }) => {
   const [chatLoading, setChatLoading] = useState(false);
   const chatEndRef = useRef(null);
 
+    const fetchHistory = useCallback(async () => {
+    if (!user) return;
+    setLoadingHistory(true);
+    try {
+      const response = await fetch(`${BACKEND_URL}/api/files/doctor/${user.uid}/history`);
+      const data = await response.json();
+      setHistoryFiles(data);
+    } catch (error) {
+      console.error('Error fetching history:', error);
+    } finally {
+      setLoadingHistory(false);
+    }
+  }, [user]);
+
   useEffect(() => {
     const currentUser = auth.currentUser;
     if (!currentUser) { if (onLogout) onLogout(); return; }
@@ -76,7 +90,7 @@ const DoctorDashboard = ({ onLogout }) => {
     if (activeTab === 'history' && user) {
         fetchHistory();
     }
-}, [activeTab, user]);
+}, [activeTab, user, fetchHistory]);
 
   const fetchDoctorProfile = async (uid) => {
     setLoadingProfile(true);
@@ -230,20 +244,6 @@ const handleFileChange = (e) => {
       setUploading(false);
     }
 };
-
-  const fetchHistory = useCallback(async () => {
-    if (!user) return;
-    setLoadingHistory(true);
-    try {
-      const response = await fetch(`${BACKEND_URL}/api/files/doctor/${user.uid}/history`);
-      const data = await response.json();
-      setHistoryFiles(data);
-    } catch (error) {
-      console.error('Error fetching history:', error);
-    } finally {
-      setLoadingHistory(false);
-    }
-  }, [user]);
 
   const formatDate = (timestamp) => {
     if (!timestamp) return 'N/A';

@@ -57,6 +57,45 @@ const [showSettingPassword3, setShowSettingPassword3] = useState(false);
   const [chatLoading, setChatLoading] = useState(false);
   const chatEndRef = useRef(null);
 
+  const fetchReports = useCallback(async (uid) => {
+    try {
+      setLoading(true);
+      const response = await fetch(`${BACKEND_URL}/api/files/patient/${uid}`);
+      const data = await response.json();
+      setReports(data);
+      setFilteredReports(data);
+    } catch (error) {
+      console.error('Error fetching reports:', error);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+   const fetchPatientProfile = useCallback(async (uid) => {
+    setLoadingProfile(true);
+    try {
+      const patientDocRef = doc(db, 'patients', uid);
+      const patientDoc = await getDoc(patientDocRef);
+      if (patientDoc.exists()) {
+        const profileData = patientDoc.data();
+        setPatientProfile(profileData);
+        fetchReports(profileData.uid);
+      } else {
+        const userDocRef = doc(db, 'users', uid);
+        const userDoc = await getDoc(userDocRef);
+        if (userDoc.exists()) {
+          const profileData = userDoc.data();
+          setPatientProfile(profileData);
+          fetchReports(profileData.uid);
+        }
+      }
+    } catch (error) {
+      console.error('Error fetching patient profile:', error);
+    } finally {
+      setLoadingProfile(false);
+    }
+}, []);
+
  useEffect(() => {
     const currentUser = auth.currentUser;
     if (!currentUser) {
@@ -90,45 +129,6 @@ const [showSettingPassword3, setShowSettingPassword3] = useState(false);
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [chatMessages]);
-
-  const fetchPatientProfile = useCallback(async (uid) => {
-    setLoadingProfile(true);
-    try {
-      const patientDocRef = doc(db, 'patients', uid);
-      const patientDoc = await getDoc(patientDocRef);
-      if (patientDoc.exists()) {
-        const profileData = patientDoc.data();
-        setPatientProfile(profileData);
-        fetchReports(profileData.uid);
-      } else {
-        const userDocRef = doc(db, 'users', uid);
-        const userDoc = await getDoc(userDocRef);
-        if (userDoc.exists()) {
-          const profileData = userDoc.data();
-          setPatientProfile(profileData);
-          fetchReports(profileData.uid);
-        }
-      }
-    } catch (error) {
-      console.error('Error fetching patient profile:', error);
-    } finally {
-      setLoadingProfile(false);
-    }
-}, []);
-
-  const fetchReports = async (uid) => {
-    try {
-      setLoading(true);
-      const response = await fetch(`${BACKEND_URL}/api/files/patient/${uid}`);
-      const data = await response.json();
-      setReports(data);
-      setFilteredReports(data);
-    } catch (error) {
-      console.error('Error fetching reports:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const handleLogout = async () => {
     try {
