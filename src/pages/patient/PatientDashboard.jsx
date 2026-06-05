@@ -1,10 +1,12 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { auth, db } from '../../firebase/firebase';
 import { signOut } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore';
+
 import { updateProfile, updatePassword, reauthenticateWithCredential, EmailAuthProvider, deleteUser } from 'firebase/auth';
 import { updateDoc, deleteDoc } from 'firebase/firestore';
 import { toast } from 'react-toastify';
+
 import '../../styles/PatientDashboard.css';
 
 const GROQ_API_KEY = process.env.REACT_APP_GROQ_API_KEY;
@@ -26,11 +28,11 @@ const PatientDashboard = ({ onLogout }) => {
     privacy: false,
     account: false
   });
-  // eslint-disable-next-line no-unused-vars
-const [notificationToggles, setNotificationToggles] = useState({
-  emailAlert: true,
-  smsAlert: false
-});
+  const [notificationToggles, setNotificationToggles] = useState({
+    emailAlert: true,
+    smsAlert: false
+  });
+
 
   // Settings modal state
 const [settingModal, setSettingModal] = useState(null);
@@ -44,7 +46,7 @@ const [showSettingPassword, setShowSettingPassword] = useState(false);
 const [showSettingPassword2, setShowSettingPassword2] = useState(false);
 const [showSettingPassword3, setShowSettingPassword3] = useState(false);
 
-  //chatbot state
+  // Chatbot state
   const [chatMessages, setChatMessages] = useState([
     {
       role: 'assistant',
@@ -55,15 +57,14 @@ const [showSettingPassword3, setShowSettingPassword3] = useState(false);
   const [chatLoading, setChatLoading] = useState(false);
   const chatEndRef = useRef(null);
 
- // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => {
+ useEffect(() => {
     const currentUser = auth.currentUser;
     if (!currentUser) {
       if (onLogout) onLogout();
       return;
     }
     setUser(currentUser);
-    fetchPatientProfile(currentUser.uid); 
+    fetchPatientProfile(currentUser.uid);
 
     const blockBackNavigation = () => {
       window.history.pushState(null, '', window.location.href);
@@ -71,9 +72,8 @@ const [showSettingPassword3, setShowSettingPassword3] = useState(false);
     window.history.pushState(null, '', window.location.href);
     window.addEventListener('popstate', blockBackNavigation);
     return () => window.removeEventListener('popstate', blockBackNavigation);
-}, [onLogout]);
+}, [onLogout, fetchPatientProfile]);
 
-// eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     if (searchQuery.trim() === '') {
       setFilteredReports(reports);
@@ -87,12 +87,11 @@ const [showSettingPassword3, setShowSettingPassword3] = useState(false);
     }
   }, [searchQuery, reports]);
 
-// eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [chatMessages]);
 
-  const fetchPatientProfile = async (uid) => {
+  const fetchPatientProfile = useCallback(async (uid) => {
     setLoadingProfile(true);
     try {
       const patientDocRef = doc(db, 'patients', uid);
@@ -100,14 +99,14 @@ const [showSettingPassword3, setShowSettingPassword3] = useState(false);
       if (patientDoc.exists()) {
         const profileData = patientDoc.data();
         setPatientProfile(profileData);
-        fetchReports(profileData.uid); 
+        fetchReports(profileData.uid);
       } else {
         const userDocRef = doc(db, 'users', uid);
         const userDoc = await getDoc(userDocRef);
         if (userDoc.exists()) {
           const profileData = userDoc.data();
           setPatientProfile(profileData);
-          fetchReports(profileData.uid); 
+          fetchReports(profileData.uid);
         }
       }
     } catch (error) {
@@ -115,7 +114,7 @@ const [showSettingPassword3, setShowSettingPassword3] = useState(false);
     } finally {
       setLoadingProfile(false);
     }
-};
+}, []);
 
   const fetchReports = async (uid) => {
     try {
@@ -146,7 +145,7 @@ const handleView = async (fileId) => {
     try {
         const response = await fetch(`${BACKEND_URL}/api/files/download/${fileId}`);
         const url = await response.text();
-        window.open(url, '_blank', 'noopener,noreferrer'); 
+        window.open(url, '_blank', 'noopener,noreferrer'); // ✅ already correct
     } catch (error) {
         console.error('Error viewing file:', error);
     }
@@ -217,10 +216,9 @@ const handleDownload = async (fileId, fileName) => {
     setExpandedSections(prev => ({ ...prev, [section]: !prev[section] }));
   };
 
-// eslint-disable-next-line no-unused-vars
-const toggleNotification = (type) => {
-  setNotificationToggles(prev => ({ ...prev, [type]: !prev[type] }));
-};
+  const toggleNotification = (type) => {
+    setNotificationToggles(prev => ({ ...prev, [type]: !prev[type] }));
+  };
 
   const handleSettingAction = (action) => {
     setSettingError('');
@@ -826,7 +824,7 @@ const handleChatSend = async () => {
                   <li>Go to <strong>AI Chatbot</strong> from left menu</li>
                   <li>Ask any health or medical question</li>
                   <li>Get instant AI powered answers</li>
-                  <li>Powered by Groq LLaMA AI</li>
+                  <li>Powered by Groq AI</li>
                 </ol>
               </div>
             </div>
@@ -837,7 +835,7 @@ const handleChatSend = async () => {
                 <h3 className="card-title">Contact Support</h3>
                 <ul className="card-steps">
                   <li>📧 Email: support@meditrail.com</li>
-                  <li>📞 Phone: +91 93561 99931</li>
+                  <li>📞 Phone: +91 93561 99932</li>
                   <li>⏰ Mon - Fri, 9AM to 6PM IST</li>
                 </ul>
               </div>

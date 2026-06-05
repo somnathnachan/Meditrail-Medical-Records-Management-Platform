@@ -1,10 +1,12 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { auth, db } from '../../firebase/firebase';
 import { signOut } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore';
 import { toast } from 'react-toastify';
+
 import { updateProfile, updatePassword, reauthenticateWithCredential, EmailAuthProvider, deleteUser } from 'firebase/auth';
 import { updateDoc, deleteDoc } from 'firebase/firestore';
+
 import '../../styles/DoctorDashboard.css';
 
 const BACKEND_URL = 'http://localhost:8080';
@@ -36,10 +38,6 @@ const DoctorDashboard = ({ onLogout }) => {
   const [expandedSections, setExpandedSections] = useState({
     profile: false, security: false, notifications: false, privacy: false, account: false
   });
-  // eslint-disable-next-line no-unused-vars
-const [notificationToggles, setNotificationToggles] = useState({
-  uploadSuccess: true, uploadFail: true
-});
 
   // Settings modal state
   const [settingModal, setSettingModal] = useState(null); // 'editName' | 'editSpecialization' | 'changePassword' | 'deleteAccount'
@@ -55,7 +53,7 @@ const [notificationToggles, setNotificationToggles] = useState({
   const [showSettingPassword2, setShowSettingPassword2] = useState(false);
   const [showSettingPassword3, setShowSettingPassword3] = useState(false);
 
- // Chatbot
+  // Chatbot
   const [chatMessages, setChatMessages] = useState([
     { role: 'assistant', text: 'Hi Dr! I am your MediTrail AI Assistant. I can help you with medical queries, drug interactions, or any clinical questions. How can I help?' }
   ]);
@@ -63,7 +61,6 @@ const [notificationToggles, setNotificationToggles] = useState({
   const [chatLoading, setChatLoading] = useState(false);
   const chatEndRef = useRef(null);
 
-// eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     const currentUser = auth.currentUser;
     if (!currentUser) { if (onLogout) onLogout(); return; }
@@ -71,17 +68,15 @@ const [notificationToggles, setNotificationToggles] = useState({
     fetchDoctorProfile(currentUser.uid);
   }, [onLogout]);
 
-// eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [chatMessages]);
 
-// eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     if (activeTab === 'history' && user) {
         fetchHistory();
     }
-  }, [activeTab, user]);
+}, [activeTab, user]);
 
   const fetchDoctorProfile = async (uid) => {
     setLoadingProfile(true);
@@ -236,7 +231,7 @@ const handleFileChange = (e) => {
     }
 };
 
-  const fetchHistory = async () => {
+  const fetchHistory = useCallback(async () => {
     if (!user) return;
     setLoadingHistory(true);
     try {
@@ -248,7 +243,7 @@ const handleFileChange = (e) => {
     } finally {
       setLoadingHistory(false);
     }
-  };
+  }, [user]);
 
   const formatDate = (timestamp) => {
     if (!timestamp) return 'N/A';
@@ -264,11 +259,6 @@ const handleFileChange = (e) => {
   const toggleSection = (section) => {
     setExpandedSections(prev => ({ ...prev, [section]: !prev[section] }));
   };
-
-// eslint-disable-next-line no-unused-vars
-const toggleNotification = (type) => {
-    setNotificationToggles(prev => ({ ...prev, [type]: !prev[type] }));
-};
 
   const handleSettingAction = (action) => {
     setSettingError('');
