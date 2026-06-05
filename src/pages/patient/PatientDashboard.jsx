@@ -87,7 +87,7 @@ const [showSettingPassword3, setShowSettingPassword3] = useState(false);
     }
   }, [searchQuery, reports]);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+// eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [chatMessages]);

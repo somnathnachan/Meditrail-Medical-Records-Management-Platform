@@ -55,7 +55,7 @@ const [notificationToggles, setNotificationToggles] = useState({
   const [showSettingPassword2, setShowSettingPassword2] = useState(false);
   const [showSettingPassword3, setShowSettingPassword3] = useState(false);
 
-  // Chatbot
+ // Chatbot
   const [chatMessages, setChatMessages] = useState([
     { role: 'assistant', text: 'Hi Dr! I am your MediTrail AI Assistant. I can help you with medical queries, drug interactions, or any clinical questions. How can I help?' }
   ]);
@@ -63,7 +63,7 @@ const [notificationToggles, setNotificationToggles] = useState({
   const [chatLoading, setChatLoading] = useState(false);
   const chatEndRef = useRef(null);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+// eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     const currentUser = auth.currentUser;
     if (!currentUser) { if (onLogout) onLogout(); return; }
@@ -71,12 +71,12 @@ const [notificationToggles, setNotificationToggles] = useState({
     fetchDoctorProfile(currentUser.uid);
   }, [onLogout]);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+// eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [chatMessages]);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+// eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     if (activeTab === 'history' && user) {
         fetchHistory();
