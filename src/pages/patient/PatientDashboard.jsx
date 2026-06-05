@@ -10,7 +10,7 @@ import { toast } from 'react-toastify';
 import '../../styles/PatientDashboard.css';
 
 const GROQ_API_KEY = process.env.REACT_APP_GROQ_API_KEY;
-const BACKEND_URL = 'http://localhost:8080';
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 const PatientDashboard = ({ onLogout }) => {
   const [user, setUser] = useState(null);
@@ -290,7 +290,7 @@ const handleSaveSetting = async () => {
             if (!settingInput.trim()) { setSettingError('Name cannot be empty'); setSettingLoading(false); return; }
             await updateProfile(auth.currentUser, { displayName: settingInput.trim() });
             await updateDoc(doc(db, 'patients', auth.currentUser.uid), { name: settingInput.trim() });
-            await fetch(`http://localhost:8080/api/patient/update`, {
+            await fetch(`${BACKEND_URL}/api/patient/update`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ uid: patientProfile?.uid, name: settingInput.trim() })
@@ -306,7 +306,7 @@ const handleSaveSetting = async () => {
                 setSettingLoading(false); return;
             }
             await updateDoc(doc(db, 'patients', auth.currentUser.uid), { phoneNumber: settingInput.trim() });
-            await fetch(`http://localhost:8080/api/patient/update`, {
+            await fetch(`${BACKEND_URL}/api/patient/update`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ uid: patientProfile?.uid, phoneNumber: settingInput.trim() })
