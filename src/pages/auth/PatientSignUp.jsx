@@ -6,7 +6,7 @@ import { auth, db } from '../../firebase/firebase';
 import { toast } from 'react-toastify';
 import '../../styles/PatientSignUp.css';
 
-const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
 const PatientSignup = () => {
   const navigate = useNavigate();

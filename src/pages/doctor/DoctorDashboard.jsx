@@ -9,7 +9,7 @@ import { updateDoc, deleteDoc } from 'firebase/firestore';
 
 import '../../styles/DoctorDashboard.css';
 
-const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const GROQ_API_KEY = process.env.REACT_APP_GROQ_API_KEY;
 
 const DoctorDashboard = ({ onLogout }) => {

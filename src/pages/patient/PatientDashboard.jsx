@@ -10,7 +10,7 @@ import { toast } from 'react-toastify';
 import '../../styles/PatientDashboard.css';
 
 const GROQ_API_KEY = process.env.REACT_APP_GROQ_API_KEY;
-const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
 const PatientDashboard = ({ onLogout }) => {
   const [user, setUser] = useState(null);
