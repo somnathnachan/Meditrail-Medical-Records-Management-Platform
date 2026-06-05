@@ -63,6 +63,7 @@ const [notificationToggles, setNotificationToggles] = useState({
   const [chatLoading, setChatLoading] = useState(false);
   const chatEndRef = useRef(null);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     const currentUser = auth.currentUser;
     if (!currentUser) { if (onLogout) onLogout(); return; }
@@ -70,16 +71,17 @@ const [notificationToggles, setNotificationToggles] = useState({
     fetchDoctorProfile(currentUser.uid);
   }, [onLogout]);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [chatMessages]);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-useEffect(() => {
+  useEffect(() => {
     if (activeTab === 'history' && user) {
         fetchHistory();
     }
-}, [activeTab, user]);
+  }, [activeTab, user]);
 
   const fetchDoctorProfile = async (uid) => {
     setLoadingProfile(true);

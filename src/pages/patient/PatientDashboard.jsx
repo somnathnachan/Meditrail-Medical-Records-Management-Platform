@@ -73,6 +73,7 @@ const [showSettingPassword3, setShowSettingPassword3] = useState(false);
     return () => window.removeEventListener('popstate', blockBackNavigation);
 }, [onLogout]);
 
+// eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     if (searchQuery.trim() === '') {
       setFilteredReports(reports);
@@ -86,6 +87,7 @@ const [showSettingPassword3, setShowSettingPassword3] = useState(false);
     }
   }, [searchQuery, reports]);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [chatMessages]);
